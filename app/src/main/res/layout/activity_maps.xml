@@ -14,12 +14,30 @@
         android:layout_weight="9"
         tools:context="com.birdboys.skidmore.birdbuddy.MapActivity" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+    <LinearLayout
         android:layout_gravity="bottom"
-        android:text="Andrews dumb stupid"
-        android:id="@+id/LocalButton"
-        />
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Local List"
+            android:id="@+id/LocalButton"
+            />
+
+        <Button
+            android:layout_alignRight="@+id/LocalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Life List"
+            android:id="@+id/LifeListButton"
+            />
+
+    </LinearLayout>
 </LinearLayout>

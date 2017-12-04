@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/single_line"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/single_line_bird_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <TextView
+        android:id="@+id/single_line_bird_name"
+        android:lines="1"
+        android:text="Bird Name Here Long Test"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/single_line_bird_image"
+        android:layout_alignBottom="@id/single_line_bird_image"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"/>
+
+    <CheckBox
+        android:id="@+id/single_line_bird_seen"
+        android:text="Seen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/single_line_bird_image"
+        android:layout_toEndOf="@+id/single_line_bird_image"
+        android:clickable="false"
+        />
+
+</RelativeLayout>

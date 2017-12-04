@@ -99,9 +99,12 @@ public class SiteScrape {
             String result = "";
             try {
                 Document document = Jsoup.connect(params[0]).get();
-                Elements children = document.select("div#spp_name").get(0).children();
-                String p = children.get(4).child(1).text();
-                result = p;
+                Elements children = document.select("div#spp_name");
+                if(children.size() > 0) {
+                    Elements children2 = children.get(0).children();
+                    String p = children2.get(4).child(1).text();
+                    result = p;
+                }
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -142,12 +145,14 @@ public class SiteScrape {
             try {
                 Document document = Jsoup.connect(params[0]).get();
                 Elements pictureDiv = document.select("div#id_glamor");
-                Elements children = pictureDiv.get(0).children();
-                System.out.println(children.get(0).absUrl("src"));
-                String imageUrl = children.get(0).absUrl("src");
-                URL url = new URL(imageUrl);
-                System.out.println(url);
-                result = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                if(pictureDiv.size() > 0) {
+                    Elements children = pictureDiv.get(0).children();
+                    System.out.println(children.get(0).absUrl("src"));
+                    String imageUrl = children.get(0).absUrl("src");
+                    URL url = new URL(imageUrl);
+                    System.out.println(url);
+                    result = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }

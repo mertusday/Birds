@@ -1,13 +1,16 @@
 package com.birdboys.birdbuddy;
 
+import java.io.Serializable;
+
 /**
  * Created by Alex on 11/28/17.
  */
 
-public class Bird {
+public class Bird{
 
     private String name;
     private String url_name;
+    private boolean seen;
 
     public Bird(String name) {
         this.name = name;
@@ -24,6 +27,8 @@ public class Bird {
                 url_name += "_" + split[i];
             }
         }
+
+        this.seen = false;
     }
 
     public String getName() {
@@ -38,4 +43,11 @@ public class Bird {
         return url_name;
     }
 
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
 }

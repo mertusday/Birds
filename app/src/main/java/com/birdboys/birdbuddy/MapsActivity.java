@@ -79,13 +79,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        Button lifeListButton = (Button) findViewById(R.id.LifeListButton);
+        lifeListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapsActivity.this, SeenBirdsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button localButton = (Button) findViewById(R.id.LocalButton);
         localButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-
+                Intent intent = BirdsNearbyActivity.newIntent(MapsActivity.this,
+                        latitude, longitude);
+                startActivity(intent);
             }
         });
     }
