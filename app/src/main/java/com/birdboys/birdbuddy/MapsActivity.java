@@ -1,9 +1,13 @@
 package com.birdboys.birdbuddy;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,21 +19,52 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import im.delight.android.location.SimpleLocation;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private List<Bird> birdList;
     private List<Sighting> sightingList;
+    private SimpleLocation sLocation;
+    private double latitude;
+    private double longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
+        System.out.println("Made 0");
+
+        sLocation = new SimpleLocation(this);
+
+        if (!sLocation.hasLocationEnabled()) {
+            SimpleLocation.openSettings(this);
+        }
+
+        latitude = sLocation.getLatitude();
+        longitude = sLocation.getLongitude();
+
+        Log.i("tag",latitude+"   -    "+longitude);
+
+        try {
+            new FetchBirdTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(birdList.get(0).getName().toString());
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
 
         Button localButton = (Button) findViewById(R.id.LocalButton);
@@ -43,24 +78,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        double min = .99999;
-        double max = 1.00002;
 
-        // Add a marker in Sydney and move the camera
-        LatLng urhere = new LatLng(43.097348, -73.784180);
+
+        /*
         LatLng test1 = new LatLng(43.0961323, -73.7844899);
         LatLng test2 = new LatLng(43.0946822, -73.767457);
         double jitterLng = 43.0946822 *(Math.random()*(max-min)+min);
@@ -79,19 +103,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(test3).title("Blue Jay"));
 
 
+        */
+        LatLng urhere = new LatLng(43.097348, -73.784180);
+
+        //LatLng urhere = new LatLng(latitude,longitude);
+
+
+        double min = .99999;
+        double max = 1.00002;
+        for(int i=0; i<sightingList.size(); i++){
+            double latTemp = sightingList.get(i).getLat();
+            double lonTemp = sightingList.get(i).getLng();
+
+            Log.i("Loop","here"+i+" lat "+latTemp+ " long "+lonTemp);
+            latTemp = latTemp *(Math.random()*(max-min)+min);
+            lonTemp = lonTemp *(Math.random()*(max-min)+min);
+
+            LatLng temp = new LatLng(latTemp, lonTemp);
+            mMap.addMarker(new MarkerOptions().position(temp).title(sightingList.get(i).getComName()));
+
+        }
+
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(urhere, 14.0f));
     }
 
     private class FetchBirdTask extends AsyncTask<Void,Void,List<List>> {
         @Override
         protected List<List> doInBackground(Void... params) {
-            return new Ebirdr().fetchNewBirds();
-        }
-
-        @Override
-        protected void onPostExecute(List<List> birdLists) {
+            String[] LongLat = {""+longitude,""+latitude};
+            List<List> birdLists = new Ebirdr(LongLat).fetchNewBirds();
             birdList = birdLists.get(0);
             sightingList = birdLists.get(1);
+            return birdLists;
         }
+
+        /*
+        @Override
+        protected void onPostExecute(List<List> birdLists) {
+
+
+            Log.i("MainMap","finished bird list: "+birdLists.get(0).get(0).getClass());
+        }
+        */
     }
+
+
 }

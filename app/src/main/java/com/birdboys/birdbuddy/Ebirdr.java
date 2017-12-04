@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import im.delight.android.location.SimpleLocation;
+
 /**
  * Created by Alex on 11/28/17.
  */
@@ -22,6 +24,14 @@ import java.util.List;
 public class Ebirdr {
 
     private static final String TAG = "ebirdr";
+    private String latitude;
+    private String longitude;
+
+    public Ebirdr(String[] LongLat){
+        longitude = LongLat[0];
+        latitude = LongLat[1];
+    }
+
 
     public byte[] getUrlBytes(String urlSpec) throws IOException {
         URL url = new URL(urlSpec);
@@ -51,8 +61,8 @@ public class Ebirdr {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject sightingObject = jsonArray.getJSONObject(i);
             Sighting sighting = new Sighting();
-            sighting.setLat(sightingObject.getInt("lat"));
-            sighting.setLng(sightingObject.getInt("lng"));
+            sighting.setLat(sightingObject.getDouble("lat"));
+            sighting.setLng(sightingObject.getDouble("lng"));
             sighting.setLocName(sightingObject.getString("locName"));
             String comName = sightingObject.getString("comName");
             sighting.setComName(comName);
@@ -84,6 +94,8 @@ public class Ebirdr {
 
         try {
             String url = Uri.parse("http://ebird.org/ws1.1/data/obs/geo/recent?lng=-73.78&lat=43.10&fmt=json").buildUpon().build().toString();
+
+         //   String url = Uri.parse("http://ebird.org/ws1.1/data/obs/geo/recent?lng="+longitude+"&lat="+latitude+"&fmt=json").buildUpon().build().toString();
             String jsonString = getUrlString(url);
             Log.i(TAG, "Received JSON: " + jsonString);
             JSONArray jsonArray = new JSONArray(jsonString);
