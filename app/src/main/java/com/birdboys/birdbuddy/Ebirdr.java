@@ -93,9 +93,9 @@ public class Ebirdr {
         List<Sighting> sightings = new ArrayList<>();
 
         try {
-            String url = Uri.parse("http://ebird.org/ws1.1/data/obs/geo/recent?lng=-73.78&lat=43.10&fmt=json").buildUpon().build().toString();
+         //   String url = Uri.parse("http://ebird.org/ws1.1/data/obs/geo/recent?lng=-73.78&lat=43.10&fmt=json").buildUpon().build().toString();
 
-         //   String url = Uri.parse("http://ebird.org/ws1.1/data/obs/geo/recent?lng="+longitude+"&lat="+latitude+"&fmt=json").buildUpon().build().toString();
+            String url = Uri.parse("http://ebird.org/ws1.1/data/obs/geo/recent?lng="+longitude+"&lat="+latitude+"&fmt=json").buildUpon().build().toString();
             String jsonString = getUrlString(url);
             Log.i(TAG, "Received JSON: " + jsonString);
             JSONArray jsonArray = new JSONArray(jsonString);

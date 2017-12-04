@@ -1,12 +1,16 @@
 package com.birdboys.birdbuddy;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import im.delight.android.location.SimpleLocation;
@@ -31,6 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private SimpleLocation sLocation;
     private double latitude;
     private double longitude;
+    private static String[] LOCATION = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
 
 
     @Override
@@ -40,14 +46,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         System.out.println("Made 0");
 
+        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MapsActivity.this, LOCATION, 1);
+            return;
+        }
         sLocation = new SimpleLocation(this);
 
         if (!sLocation.hasLocationEnabled()) {
             SimpleLocation.openSettings(this);
         }
 
+        sLocation.beginUpdates();
+
         latitude = sLocation.getLatitude();
         longitude = sLocation.getLongitude();
+
+        sLocation.endUpdates();
 
         Log.i("tag",latitude+"   -    "+longitude);
 
@@ -59,12 +73,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
-        System.out.println(birdList.get(0).getName().toString());
+        //System.out.println(birdList.get(0).getName().toString());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
 
         Button localButton = (Button) findViewById(R.id.LocalButton);
@@ -81,8 +94,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
 
         /*
         LatLng test1 = new LatLng(43.0961323, -73.7844899);
@@ -104,7 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         */
-        LatLng urhere = new LatLng(43.097348, -73.784180);
+        LatLng urhere = new LatLng(latitude, longitude);
 
         //LatLng urhere = new LatLng(latitude,longitude);
 
@@ -123,8 +134,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(temp).title(sightingList.get(i).getComName()));
 
         }
-
-
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(urhere, 14.0f));
     }
@@ -148,6 +157,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         */
     }
+
+
+
 
 
 }
