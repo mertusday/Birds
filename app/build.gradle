@@ -32,4 +32,6 @@ dependencies {
     compile 'org.jsoup:jsoup:1.11.1'
     compile 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
     compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+
 }

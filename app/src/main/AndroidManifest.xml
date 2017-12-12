@@ -42,7 +42,8 @@
         </activity>
         <activity android:name=".BirdsNearbyActivity" />
         <activity android:name=".SingleBirdActivity" />
-        <activity android:name=".SeenBirdsActivity"></activity>
+        <activity android:name=".SeenBirdsActivity" />
+        <activity android:name=".AddBirdActivity"></activity>
     </application>
 
 </manifest>

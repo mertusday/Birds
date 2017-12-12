@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -94,6 +95,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Intent intent = BirdsNearbyActivity.newIntent(MapsActivity.this,
                         latitude, longitude);
+                startActivity(intent);
+            }
+        });
+
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.myFAB);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapsActivity.this, AddBirdActivity.class);
+
                 startActivity(intent);
             }
         });

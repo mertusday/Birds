@@ -1,8 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10">
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -14,30 +17,48 @@
         android:layout_weight="9"
         tools:context="com.birdboys.skidmore.birdbuddy.MapActivity" />
 
-    <LinearLayout
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/myFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
+        android:layout_marginVertical="6dp"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:elevation="4dp"
+        app:layout_anchor="@id/map"
+        app:layout_anchorGravity="bottom"
+        app:srcCompat="@android:drawable/ic_input_add"
+         />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Local List"
-            android:id="@+id/LocalButton"
-            />
 
-        <Button
-            android:layout_alignRight="@+id/LocalButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Life List"
-            android:id="@+id/LifeListButton"
-            />
+    <Button
+        android:id="@+id/LocalButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Local List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/LifeListButton"
+         />
 
-    </LinearLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/LifeListButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Life List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/LocalButton"
+        app:layout_constraintRight_toRightOf="parent"
+         />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+</android.support.constraint.ConstraintLayout>
