@@ -105,6 +105,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Intent intent = new Intent(MapsActivity.this, AddBirdActivity.class);
 
+                String[] input = new String[birdList.size()+2];
+                input[0]= ""+latitude;
+                input[1]= ""+longitude;
+                for (int i=0; i<birdList.size(); i++){
+                    input[i+2]=birdList.get(i).getName();
+                }
+                intent.putExtra("birds", input);
+
                 startActivity(intent);
             }
         });
