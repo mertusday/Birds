@@ -1,15 +1,30 @@
 package com.birdboys.birdbuddy;
 
+import java.util.UUID;
+
 /**
  * Created by Alex on 11/28/17.
  */
 
 public class Sighting {
 
+    private UUID uuid;
     private String locName;
     private double lng;
     private double lat;
     private String comName;
+
+    public Sighting() {
+        this.uuid = UUID.randomUUID();
+    }
+
+    public Sighting(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
 
     public String getLocName() {
         return locName;
