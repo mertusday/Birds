@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Bird's Common Name"
          />
 
     <Switch
@@ -44,12 +44,18 @@
         android:inputType="numberSigned"
          />
 
+    <TextView
+        android:id="@+id/dateInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Date of Sighting"
+        app:layout_constraintTop_toBottomOf="@+id/longDirectAddInput"/>
 
     <EditText
         android:id="@+id/dateInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/longDirectAddInput"
+        app:layout_constraintTop_toBottomOf="@+id/dateInfo"
         android:ems="10"
         android:inputType="numberSigned"
         />
@@ -59,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Button"
+        android:text="Add Bird"
          />
 
 </android.support.constraint.ConstraintLayout>
