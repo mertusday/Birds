@@ -13,6 +13,7 @@ import com.birdboys.birdbuddy.sightingDatabase.SightingListDBHelper;
 import com.birdboys.birdbuddy.sightingDatabase.SightingListDBSchema;
 import com.birdboys.birdbuddy.sightingDatabase.SightingListDBSchema.SightingListDBTable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -203,6 +204,8 @@ public class LifeList {
         values.put(SightingListDBTable.Cols.LONGITUDE, sighting.getLng());
         values.put(SightingListDBTable.Cols.LATITUDE, sighting.getLat());
         values.put(SightingListDBTable.Cols.COMNAME, sighting.getComName());
+        values.put(SightingListDBTable.Cols.DATE, new SimpleDateFormat("dd/MM/yyyy")
+                .format(sighting.getDate()));
 
         return values;
     }

@@ -26,7 +26,8 @@ public class SightingListDBHelper extends SQLiteOpenHelper{
                 SightingListDBTable.Cols.LOCNAME + ", " +
                 SightingListDBTable.Cols.LATITUDE + ", " +
                 SightingListDBTable.Cols.LONGITUDE + ", " +
-                SightingListDBTable.Cols.COMNAME + ")"
+                SightingListDBTable.Cols.COMNAME + ", " +
+                SightingListDBTable.Cols.DATE + ")"
         );
     }
 

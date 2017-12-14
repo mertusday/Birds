@@ -14,6 +14,7 @@ public class SightingListDBSchema {
             public static final String LONGITUDE = "longitude";
             public static final String LATITUDE = "latitude";
             public static final String COMNAME = "comname";
+            public static final String DATE = "date";
         }
     }
 }

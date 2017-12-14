@@ -1,5 +1,6 @@
 package com.birdboys.birdbuddy;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -13,6 +14,7 @@ public class Sighting {
     private double lng;
     private double lat;
     private String comName;
+    private Date date;
 
     public Sighting() {
         this.uuid = UUID.randomUUID();
@@ -56,5 +58,13 @@ public class Sighting {
 
     public void setComName(String comName) {
         this.comName = comName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
